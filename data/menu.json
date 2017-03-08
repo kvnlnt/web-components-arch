@@ -7,6 +7,10 @@
         {
             "name":"About",
             "path":"/about.html"
+        },
+        {
+            "name":"Contact",
+            "path":"/contact.html"
         }
     ]
 }

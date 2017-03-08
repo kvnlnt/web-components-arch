@@ -6,7 +6,6 @@
         <script src="./core/ark.js"></script>
         <script src="./core/ark.api.js"></script>
         <script src="./core/ark.css.js"></script>
-        <script src="./core/ark.page.js"></script>
         <script src="./core/ark.part.js"></script>
         <script src="./core/ark.template.js"></script>
         <script src="./core/ark.init.js"></script>
@@ -17,6 +16,31 @@
                 theme:{
                     textColor:"#FF0000",
                     bgColor: "#e2e2e2"
+                },
+                template: "<div id=\"Page\"><div id=\"left\"></div><div id=\"body\"></div></div>",
+                css: [
+                {
+                    selector: "#Page",
+                    declarations: [
+                        "width:100%",
+                        "display:table"
+                    ]
+                },{
+                    selector: "#left",
+                    declarations: [
+                        "width:20%",
+                        "display:table-cell"
+                    ]
+                },{
+                    selector: "#body",
+                    declarations: [
+                        "width:80%",
+                        "display:table-cell"
+                    ]
+                }],
+                targets: {
+                    left: ["menu"],
+                    body: ["home-header"]
                 }
             };
         </script>
@@ -24,12 +48,12 @@
     </head>
     <body>
 
-        <ark-layout id="layout-left"></ark-layout>
+        <ark-page></ark-page>
         <ark-menu id="menu"></ark-menu>
         <ark-header id="home-header"></ark-header>
 
         <!-- ark web components -->
-        <script src="./parts/ark-layout.js"></script>
+        <script src="./parts/ark-page.js"></script>
         <script src="./parts/ark-menu.js"></script>
         <script src="./parts/ark-header.js"></script>
     </body>

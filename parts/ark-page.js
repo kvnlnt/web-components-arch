@@ -3,10 +3,10 @@
     /**
      * Class
      *
-     * @class      ArkLayout (name)
+     * @class      ArkPage (name)
      * @param      {Object}  options  The options
      */
-    function ArkLayout(options) {
+    function ArkPage(options) {
         var options = options || {};
         this.el = options.el;
         this.init();
@@ -15,10 +15,10 @@
     // STATIC PROPERTIES
 
     // Name of custom tag
-    ArkLayout.selector = "ark-layout";
+    ArkPage.selector = "ark-page";
 
     // Params
-    ArkLayout.params = {
+    ArkPage.params = {
         name: String,
         message: String
     };
@@ -27,20 +27,20 @@
 
     /**
      * initAll
-     * @desc  Creates an instance of ArkLayout for each ark-component tag found, also loads the css for the ArkLayout
+     * @desc  Creates an instance of ArkPage for each ark-component tag found, also loads the css for the ArkPage
      */
-    ArkLayout.initAll = function() {
+    ArkPage.initAll = function() {
         // find all ark-component tags
         document.addEventListener(Ark.events.READY, function() {
             Ark.Part.collectAndInitialize({
-                part: ArkLayout
+                part: ArkPage
             });
         });
     };
 
     // INSTANCE METHODS
 
-    ArkLayout.prototype = {
+    ArkPage.prototype = {
         /**
          * init
          * @desc request component data and render on finish
@@ -49,11 +49,9 @@
          */
         init: function() {
             var that = this;
-            return Ark.Api.getPart(this.getId(), function(err, data) {
-                Ark.Css.add(data.css);
-                that.render(data.template);
-                that.layout(data.targets);
-            });
+            Ark.Css.add(Ark.Page.css);
+            that.render(Ark.Page.template);
+            that.layout(Ark.Page.targets);
         },
         /**
          * Gets the identifier.
@@ -94,9 +92,9 @@
     };
 
     // look for any ark-components on this page and create instances of them
-    ArkLayout.initAll();
+    ArkPage.initAll();
 
-    PARTS.ArkLayout = PARTS;
+    PARTS.ArkPage = ArkPage;
     return PARTS;
 
 }(Ark.Parts || {}));

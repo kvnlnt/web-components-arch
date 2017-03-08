@@ -112,7 +112,7 @@
     // look for any ark-components on this page and create instances of them
     ArkHeader.initAll();
 
-    PARTS.ArkHeader = PARTS;
+    PARTS.ArkHeader = ArkHeader;
     return PARTS;
 
 }(Ark.Parts || {}));
