@@ -9,7 +9,6 @@
     function ArkMenu(options) {
         var options = options || {};
         this.el = options.el;
-        this.init();
     };
 
     // STATIC PROPERTIES
@@ -55,26 +54,11 @@
     ArkMenu.template = function() {
         var template = '';
         template += '<ul>';
-        template += '<% for(item in this.items) { %>';
-        template += '<li><a href="<% this.items[item].path %>"><% this.items[item].name %></a></li>';
+        template += '<% for(var i = 0; i < this.items.length; i++) { %>';
+        template += '<li><a href="<% this.items[i].path %>"><% this.items[i].name %></a></li>';
         template += '<% } %>';
         template += '<ul>';
         return template;
-    };
-
-    /**
-     * initAll
-     * @desc  Creates an instance of ArkMenu for each ark-component tag found, also loads the css for the ArkMenu
-     */
-    ArkMenu.initAll = function() {
-        // find all ark-component tags
-        document.addEventListener(Ark.events.READY, function() {
-            Ark.Part.collectAndInitialize({
-                part: ArkMenu
-            });
-        });
-        // load the css
-        Ark.Css.add(ArkMenu.css());
     };
 
     // INSTANCE METHODS
@@ -113,9 +97,6 @@
             return renderedTemplate;
         }
     };
-
-    // look for any ark-components on this page and create instances of them
-    ArkMenu.initAll();
 
     PARTS.ArkMenu = ArkMenu;
     return PARTS;

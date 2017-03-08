@@ -14,7 +14,26 @@
             Ark.Css.add(Page.css);
             Page.render(Page.template, Page.templateData);
             Page.layoutParts(Page.layout);
+            Page.initializeParts();
         });
+    };
+
+    Page.initializeParts = function() {
+        var part;
+        for(var x in ARK.Parts){
+            var part = ARK.Parts[x];
+            var parts = document.querySelectorAll(part.selector);
+            var partInstance;
+            for (var y = 0; y < parts.length; y++) {
+                partInstance = new part({
+                    el: parts[y]
+                });
+                Ark.parts[partInstance.getId()] = partInstance;
+                Ark.Css.add(part.css());
+                partInstance.init();
+            }
+        }
+        return parts;
     };
 
     Page.render = function(template, data){
@@ -37,7 +56,6 @@
             }
         }
     };
-
 
     ARK.Page = Page;
     return ARK;

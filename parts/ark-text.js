@@ -9,7 +9,6 @@
     function ArkText(options) {
         var options = options || {};
         this.el = options.el;
-        this.init();
     };
 
     // STATIC PROPERTIES
@@ -63,25 +62,10 @@
         template += '<% if(this.image) { %>';
         template += '<img src="<% this.image %>"/>';
         template += '<% } %>';
-        template += '<% for(item in this.text) { %>';
-        template += '<p><% this.text[item] %></p>';
+        template += '<% for(var i = 0; i < this.text.length; i++) { %>';
+        template += '<p><% this.text[i] %></p>';
         template += '<% } %>';
         return template;
-    };
-
-    /**
-     * initAll
-     * @desc  Creates an instance of ArkText for each ark-component tag found, also loads the css for the ArkText
-     */
-    ArkText.initAll = function() {
-        // find all ark-component tags
-        document.addEventListener(Ark.events.READY, function() {
-            Ark.Part.collectAndInitialize({
-                part: ArkText
-            });
-        });
-        // load the css
-        Ark.Css.add(ArkText.css());
     };
 
     // INSTANCE METHODS
@@ -120,9 +104,6 @@
             return renderedTemplate;
         }
     };
-
-    // look for any ark-components on this page and create instances of them
-    ArkText.initAll();
 
     PARTS.ArkText = ArkText;
     return PARTS;

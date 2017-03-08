@@ -9,7 +9,6 @@
     function ArkHeader(options) {
         var options = options || {};
         this.el = options.el;
-        this.init();
     };
 
     // STATIC PROPERTIES
@@ -57,21 +56,6 @@
         return template;
     };
 
-    /**
-     * initAll
-     * @desc  Creates an instance of ArkHeader for each ark-component tag found, also loads the css for the ArkHeader
-     */
-    ArkHeader.initAll = function() {
-        // find all ark-component tags
-        document.addEventListener(Ark.events.READY, function() {
-            Ark.Part.collectAndInitialize({
-                part: ArkHeader
-            });
-        });
-        // load the css
-        Ark.Css.add(ArkHeader.css());
-    };
-
     // INSTANCE METHODS
 
     ArkHeader.prototype = {
@@ -108,9 +92,6 @@
             return renderedTemplate;
         }
     };
-
-    // look for any ark-components on this page and create instances of them
-    ArkHeader.initAll();
 
     PARTS.ArkHeader = ArkHeader;
     return PARTS;
