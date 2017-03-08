@@ -3,10 +3,10 @@
     /**
      * Class
      *
-     * @class      ArkHeader (name)
+     * @class      ArkLayout (name)
      * @param      {Object}  options  The options
      */
-    function ArkHeader(options) {
+    function ArkLayout(options) {
         var options = options || {};
         this.el = options.el;
         this.init();
@@ -15,10 +15,10 @@
     // STATIC PROPERTIES
 
     // Name of custom tag
-    ArkHeader.selector = "ark-header";
+    ArkLayout.selector = "ark-layout";
 
     // Params
-    ArkHeader.params = {
+    ArkLayout.params = {
         name: String,
         message: String
     };
@@ -26,55 +26,21 @@
     // STATIC METHODS
 
     /**
-     * css
-     *
-     * @param      {<type>}  data    The data
-     * @return     {Array}   array of css rules to be used by Ark.addCss
-     */
-    ArkHeader.css = function(data) {
-        return [
-            {
-                selector: ArkHeader.selector,
-                declarations: [
-                    'background-color: ' + Ark.Page.theme.bgColor,
-                    'display: block',
-                    'padding: 20px',
-                    'color: ' + Ark.Page.theme.textColor
-                ]
-            }
-        ]
-    };
-
-    /**
-     * template
-     *
-     * @return     {string}  html template string which can be transformed by Ark.template
-     */
-    ArkHeader.template = function() {
-        var template = '';
-        template += '<h1><% this.name %></h1>';
-        template += '<p><% this.message %></p>';
-        return template;
-    };
-
-    /**
      * initAll
-     * @desc  Creates an instance of ArkHeader for each ark-component tag found, also loads the css for the ArkHeader
+     * @desc  Creates an instance of ArkLayout for each ark-component tag found, also loads the css for the ArkLayout
      */
-    ArkHeader.initAll = function() {
+    ArkLayout.initAll = function() {
         // find all ark-component tags
         document.addEventListener(Ark.events.READY, function() {
             Ark.Part.collectAndInitialize({
-                part: ArkHeader
+                part: ArkLayout
             });
         });
-        // load the css
-        Ark.Css.add(ArkHeader.css());
     };
 
     // INSTANCE METHODS
 
-    ArkHeader.prototype = {
+    ArkLayout.prototype = {
         /**
          * init
          * @desc request component data and render on finish
@@ -84,7 +50,9 @@
         init: function() {
             var that = this;
             return Ark.Api.getPart(this.getId(), function(err, data) {
-                that.render(ArkHeader.template(), data);
+                Ark.Css.add(data.css);
+                that.render(data.template);
+                that.layout(data.targets);
             });
         },
         /**
@@ -94,6 +62,22 @@
          */
         getId: function() {
             return this.el.getAttribute("id");
+        },
+        /**
+         * Auto lays out parts
+         * @param  {[type]} targets [description]
+         * @return {[type]}         [description]
+         */
+        layout: function(targets){
+            var target;
+            var part;
+            for(var i in targets){
+                target = document.getElementById(i);
+                for(var j in targets[i]){
+                    part = document.getElementById(targets[i][j]);
+                    target.appendChild(part);
+                }
+            }
         },
         /**
          * Renders this components template with data supplied
@@ -110,9 +94,9 @@
     };
 
     // look for any ark-components on this page and create instances of them
-    ArkHeader.initAll();
+    ArkLayout.initAll();
 
-    PARTS.ArkHeader = PARTS;
+    PARTS.ArkLayout = PARTS;
     return PARTS;
 
 }(Ark.Parts || {}));

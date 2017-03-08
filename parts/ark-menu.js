@@ -17,6 +17,14 @@
     // Name of custom tag
     ArkMenu.selector = "ark-menu";
 
+    // params
+    ArkMenu.params = {
+        items: Array.of({
+            name: String,
+            path: String
+        })
+    };
+
     // STATIC METHODS
 
     /**
@@ -62,7 +70,7 @@
         // find all ark-component tags
         document.addEventListener(Ark.events.READY, function() {
             Ark.Part.collectAndInitialize({
-                component: ArkMenu
+                part: ArkMenu
             });
         });
         // load the css
@@ -80,7 +88,7 @@
          */
         init: function() {
             var that = this;
-            return Ark.Api.get("/data/ark-menu.json", function(err, data) {
+            return Ark.Api.getPart(this.getId(), function(err, data) {
                 that.render(ArkMenu.template(), data);
             });
         },

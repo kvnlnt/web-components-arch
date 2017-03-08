@@ -3,16 +3,16 @@
 
     Part.collectAndInitialize = function(options) {
         var options = options || {};
-        var Component = options.component;
-        var components = document.querySelectorAll(Component.selector);
-        var componentInstance;
-        for (var i = 0; i < components.length; i++) {
-            componentInstance = new Component({
-                el: components[i]
+        var Part = options.part;
+        var parts = document.querySelectorAll(Part.selector);
+        var partInstance;
+        for (var i = 0; i < parts.length; i++) {
+            partInstance = new Part({
+                el: parts[i]
             });
-            Ark.components[componentInstance.getId()] = componentInstance;
+            Ark.parts[partInstance.getId()] = partInstance;
         }
-        return components;
+        return parts;
     };
 
     ARK.Part = Part;

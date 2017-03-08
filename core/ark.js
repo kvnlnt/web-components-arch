@@ -1,10 +1,10 @@
 var Ark = {
 
     // namespace for all components
-    Components: {},
+    Parts: {},
 
     // container for components initialized on page
-    components: {},
+    parts: {},
 
     // enum for any app events
     events: {

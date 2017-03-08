@@ -1,0 +1,27 @@
+{
+    "template": "<div id=\"Layout\"><div id=\"left\"></div><div id=\"body\"></div></div>",
+    "css": [
+    {
+        "selector": "#Layout",
+        "declarations": [
+            "width:100%",
+            "display:table"
+        ]
+    },{
+        "selector": "#left",
+        "declarations": [
+            "width:20%",
+            "display:table-cell"
+        ]
+    },{
+        "selector": "#body",
+        "declarations": [
+            "width:80%",
+            "display:table-cell"
+        ]
+    }],
+    "targets": {
+        "left": ["menu"],
+        "body": ["home-header"]
+    }
+}

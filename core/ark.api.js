@@ -1,7 +1,8 @@
 (function(ARK) {
     var Api = {};
 
-    Api.get = function(path, cb) {
+    Api.getPart = function(partId, cb) {
+        var path = "./data/" + partId + ".json";
         var request = new XMLHttpRequest();
         request.open('GET', path, true);
         request.onload = function() {
