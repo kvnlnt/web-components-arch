@@ -3,10 +3,10 @@
     /**
      * Class
      *
-     * @class      ArkComponent (name)
+     * @class      ArkHeader (name)
      * @param      {Object}  options  The options
      */
-    function ArkComponent(options) {
+    function ArkHeader(options) {
         var options = options || {};
         this.el = options.el;
         this.init();
@@ -15,7 +15,7 @@
     // STATIC PROPERTIES
 
     // Name of custom tag
-    ArkComponent.selector = "ark-component";
+    ArkHeader.selector = "ark-header";
 
     // STATIC METHODS
 
@@ -25,14 +25,15 @@
      * @param      {<type>}  data    The data
      * @return     {Array}   array of css rules to be used by Ark.addCss
      */
-    ArkComponent.css = function(data) {
+    ArkHeader.css = function(data) {
         return [
             {
-                selector: ArkComponent.selector,
+                selector: ArkHeader.selector,
                 declarations: [
-                    'background-color: #e2e2e2',
+                    'background-color: ' + Ark.Page.theme.bgColor,
                     'display: block',
-                    'padding: 20px'
+                    'padding: 20px',
+                    'color: ' + Ark.Page.theme.textColor
                 ]
             }
         ]
@@ -43,27 +44,31 @@
      *
      * @return     {string}  html template string which can be transformed by Ark.template
      */
-    ArkComponent.template = function() {
-        return 'Hi, I am a custom component. With the a little help, I grabbed external data, compiled it with both an html and css template and dynamically generated my own mark up and styles. For example, my payload included a "name" value. Here it is generated via my own template: <strong><% this.name %></strong>';
+    ArkHeader.template = function() {
+        var template = '';
+        template += '<h1><% this.name %></h1>';
+        template += '<p><% this.message %></p>';
+        return template;
     };
 
     /**
      * initAll
-     * @desc  Creates an instance of ArkComponent for each ark-component tag found, also loads the css for the ArkComponent
+     * @desc  Creates an instance of ArkHeader for each ark-component tag found, also loads the css for the ArkHeader
      */
-    ArkComponent.initAll = function() {
+    ArkHeader.initAll = function() {
         // find all ark-component tags
         document.addEventListener(Ark.events.READY, function() {
-            Ark.Component.collectAndInitialize({
-                component: ArkComponent
+            Ark.Part.collectAndInitialize({
+                component: ArkHeader
             });
         });
         // load the css
-        Ark.Css.add(ArkComponent.css());
+        Ark.Css.add(ArkHeader.css());
     };
 
     // INSTANCE METHODS
-    ArkComponent.prototype = {
+
+    ArkHeader.prototype = {
         /**
          * init
          * @desc request component data and render on finish
@@ -72,8 +77,8 @@
          */
         init: function() {
             var that = this;
-            return Ark.Api.fetch("/part/" + this.getId(), function(data) {
-                that.render(ArkComponent.template(), data);
+            return Ark.Api.get("/data/" + this.getId() + ".json", function(err, data) {
+                that.render(ArkHeader.template(), data);
             });
         },
         /**
@@ -99,9 +104,9 @@
     };
 
     // look for any ark-components on this page and create instances of them
-    ArkComponent.initAll();
+    ArkHeader.initAll();
 
-    COMPONENTS.ArkComponent = ArkComponent;
+    COMPONENTS.ArkHeader = ArkHeader;
     return COMPONENTS;
 
 }(Ark.Components || {}));

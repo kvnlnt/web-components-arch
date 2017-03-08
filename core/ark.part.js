@@ -1,7 +1,7 @@
 (function(ARK) {
-    var Component = {};
+    var Part = {};
 
-    Component.collectAndInitialize = function(options) {
+    Part.collectAndInitialize = function(options) {
         var options = options || {};
         var Component = options.component;
         var components = document.querySelectorAll(Component.selector);
@@ -15,6 +15,6 @@
         return components;
     };
 
-    ARK.Component = Component;
+    ARK.Part = Part;
     return ARK;
 }(Ark || {}));

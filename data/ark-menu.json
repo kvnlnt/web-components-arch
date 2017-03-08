@@ -1,0 +1,12 @@
+{
+    "items": [
+        {
+            "name":"Home",
+            "path":"/index.html"
+        },
+        {
+            "name":"About",
+            "path":"/about.html"
+        }
+    ]
+}
