@@ -8,7 +8,8 @@ var Ark = {
 
     // enum for any app events
     events: {
-        READY: "READY"
+        READY: "READY",
+        PARTS_INITIALIZED:"PARTS_INITIALIZED"
     },
 
     /// initialize ark

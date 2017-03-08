@@ -33,6 +33,8 @@
                 partInstance.init();
             }
         }
+        var e = new Event(Ark.events.PARTS_INITIALIZED);
+        document.dispatchEvent(e);
         return parts;
     };
 
