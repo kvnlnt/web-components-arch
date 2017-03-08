@@ -7,13 +7,13 @@
         Page.css = options.css || [];
         Page.template = options.template || null;
         Page.templateData = options.templateData || {};
-        Page.targets = options.targets || {};
+        Page.layout = options.layout || {};
 
         document.addEventListener(Ark.events.READY, function() {
             // render css
             Ark.Css.add(Page.css);
             Page.render(Page.template, Page.templateData);
-            Page.layout(Page.targets);
+            Page.layoutParts(Page.layout);
         });
     };
 
@@ -26,17 +26,17 @@
         return renderedTemplate;
     };
 
-    Page.layout = function(targets){
-            var target;
-            var part;
-            for(var i in targets){
-                target = document.getElementById(i);
-                for(var j in targets[i]){
-                    part = document.getElementById(targets[i][j]);
-                    target.appendChild(part);
-                }
+    Page.layoutParts = function(layout){
+        var target;
+        var part;
+        for(var i in layout){
+            target = document.getElementById(i);
+            for(var j in layout[i]){
+                part = document.getElementById(layout[i][j]);
+                target.appendChild(part);
             }
-        };
+        }
+    };
 
 
     ARK.Page = Page;
