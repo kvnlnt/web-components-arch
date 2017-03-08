@@ -24,7 +24,7 @@
                 templateData: {},
                 css: [
                 {
-                    selector: "#Page",
+                    selector: "#Layout",
                     declarations: [
                         "width:100%",
                         "display:table"
@@ -44,7 +44,7 @@
                 }],
                 layout: {
                     left: ["menu"],
-                    body: ["home-header"]
+                    body: ["home-header", "text"]
                 }
             });
         </script>
@@ -54,9 +54,11 @@
 
         <ark-menu id="menu"></ark-menu>
         <ark-header id="home-header"></ark-header>
+        <ark-text id="text"></ark-text>
 
         <!-- ark web components -->
         <script src="./parts/ark-menu.js"></script>
         <script src="./parts/ark-header.js"></script>
+        <script src="./parts/ark-text.js"></script>
     </body>
 </html>
