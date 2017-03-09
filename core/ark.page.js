@@ -8,14 +8,10 @@
         Page.template = options.template || null;
         Page.templateData = options.templateData || {};
         Page.layout = options.layout || {};
-
-        document.addEventListener(Ark.events.READY, function() {
-            // render css
-            Ark.Css.add(Page.css);
-            Page.render(Page.template, Page.templateData);
-            Page.layoutParts(Page.layout);
-            Page.initializeParts();
-        });
+        Ark.Css.add(Page.css);
+        Page.render(Page.template, Page.templateData);
+        Page.layoutParts(Page.layout);
+        Page.initializeParts();
     };
 
     Page.initializeParts = function() {
@@ -33,8 +29,7 @@
                 partInstance.init();
             }
         }
-        var e = new Event(Ark.events.PARTS_INITIALIZED);
-        document.dispatchEvent(e);
+        Ark.Events.dispatch(Ark.EVENTS.PARTS_INITIALIZED);
         return parts;
     };
 
@@ -52,12 +47,16 @@
         var part;
         for(var i in layout){
             target = document.getElementById(i);
-            for(var j in layout[i]){
-                part = document.getElementById(layout[i][j]);
+            for(var j in layout[i].parts){
+                part = document.getElementById(layout[i].parts[j]);
                 target.appendChild(part);
             }
         }
     };
+
+    Ark.Events.addEventListener(Ark.EVENTS.ARK_INITIALIZED, function() {
+        Page.init(PageData);
+    });
 
     ARK.Page = Page;
     return ARK;
