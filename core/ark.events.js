@@ -2,11 +2,11 @@
 
     var EVENTS = {
         DOCUMENT_READY: "DOCUMENT_READY",
-        ARK_INITIALIZED: "ARK_INITIALIZED",
+        ARK_READY: "ARK_READY",
         PAGE_READY: "PAGE_READY",
         PAGE_RESIZED: "PAGE_RESIZED",
         PAGE_SCROLLED: "PAGE_SCROLLED",
-        PARTS_INITIALIZED: "PARTS_INITIALIZED"
+        PARTS_READY: "PARTS_READY"
     };
 
     var Events = new ARK.EventBus();

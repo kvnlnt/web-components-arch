@@ -1,17 +1,19 @@
 (function(ARK) {
     var Page = {};
 
-    Page.init = function(options){
-        var options = options || {};
-        Page.theme = options.theme || {};
-        Page.css = options.css || [];
-        Page.template = options.template || null;
-        Page.templateData = options.templateData || {};
-        Page.layout = options.layout || {};
+    // These should be defined onload in the html document
+    Page.theme = {}; // should be provided on load
+    Page.template ="<div class=\"layout\">There was an error</div>";
+    Page.templateData = {};
+    Page.css = [];
+    Page.layout = {};
+
+    Page.init = function(){
         Ark.Css.add(Page.css);
         Page.render(Page.template, Page.templateData);
         Page.layoutParts(Page.layout);
         Page.initializeParts();
+        Ark.Events.dispatch(Ark.EVENTS.PAGE_READY);
     };
 
     Page.initializeParts = function() {
@@ -29,7 +31,7 @@
                 partInstance.init();
             }
         }
-        Ark.Events.dispatch(Ark.EVENTS.PARTS_INITIALIZED);
+        Ark.Events.dispatch(Ark.EVENTS.PARTS_READY);
         return parts;
     };
 
@@ -42,20 +44,20 @@
         return renderedTemplate;
     };
 
-    Page.layoutParts = function(layout){
+    Page.layoutParts = function(config){
         var target;
         var part;
-        for(var i in layout){
-            target = document.getElementById(i);
-            for(var j in layout[i].parts){
-                part = document.getElementById(layout[i].parts[j]);
+        for(var i in config){
+            target = document.querySelector(i);
+            for(var j in config[i].parts){
+                part = document.getElementById(config[i].parts[j]);
                 target.appendChild(part);
             }
         }
     };
 
-    Ark.Events.addEventListener(Ark.EVENTS.ARK_INITIALIZED, function() {
-        Page.init(PageData);
+    Ark.Events.addEventListener(Ark.EVENTS.ARK_READY, function() {
+        Page.init();
     });
 
     ARK.Page = Page;
